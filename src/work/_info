@@ -1,0 +1,549 @@
+m255
+K4
+z2
+!s11f vlog 2020.4 2020.10, Oct 13 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/Verification HDL Fall 2025/CA/mips
+T_opt
+!s110 1770640430
+VRLiITKU?E`MlZ72DRKZNF2
+Z1 04 6 4 work MAC_TB fast 0
+=1-581cf8b38a71-6989d42e-121-5ffc
+o-quiet -auto_acc_if_foreign -work work
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.4;71
+R0
+T_opt1
+!s110 1770642802
+V_f;GMh9f;X?d^UoBORTMM2
+R1
+=1-581cf8b38a71-6989dd72-1be-4014
+o-quiet -auto_acc_if_foreign -work work +acc
+R2
+n@_opt1
+R3
+R0
+vAdder
+Z4 !s110 1770655289
+!i10b 1
+!s100 0kWDCgzA12hRRTL;Yg`Z?3
+Z5 !s11b Dg1SIo80bB@j0V0VzS_@n1
+InJeazU4Q4bf]A58Ldd?G42
+Z6 dD:/Embedded AI Fall 2025/CA3/CA3
+w1767727363
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v
+!i122 128
+Z7 L0 1 5
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2020.4;71
+r1
+!s85 0
+31
+Z10 !s108 1770655289.000000
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v|
+!i113 0
+Z11 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@adder
+vcarry_save_adder
+R4
+!i10b 1
+!s100 oIDObZOBib24QfCZ028442
+R5
+IiC?@ghz@aU`znGhHbn^D=1
+R6
+Z12 w1767728106
+Z13 8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v
+Z14 FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v
+!i122 129
+L0 16 28
+R8
+R9
+r1
+!s85 0
+31
+R10
+Z15 !s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v|
+Z16 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v|
+!i113 0
+R11
+R2
+vCSA
+R4
+!i10b 1
+!s100 ]3ERIl[lzfEiMZT3`Tf7z0
+R5
+ImIEiOZ3<z`WU93Sn`b]^Y0
+R6
+w1767727542
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v
+!i122 133
+R7
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v|
+!i113 0
+R11
+R2
+n@c@s@a
+vDataMem
+R4
+!i10b 1
+!s100 9_?nDEFzQdOoP@kcWA:zd2
+R5
+II>_L<SVWR:_mYTEWR19`o2
+R6
+w1747394211
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v
+!i122 126
+L0 1 25
+R8
+R9
+r1
+!s85 0
+31
+!s108 1770655288.000000
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v|
+!i113 0
+R11
+R2
+n@data@mem
+vfull_adder
+R4
+!i10b 1
+!s100 TiG@hVf^hcA?HWdhG[ig32
+R5
+IzR<PeX@o3WT]8YN9XZ[Mn2
+R6
+R12
+R13
+R14
+!i122 129
+L0 3 12
+R8
+R9
+r1
+!s85 0
+31
+R10
+R15
+R16
+!i113 0
+R11
+R2
+vint_to_radix7
+R4
+!i10b 1
+!s100 3_XKB5S6_j]V7Q<?>S>hd3
+R5
+I0Xez]=Z?d<=@z2P8G?K6k3
+R6
+R12
+R13
+R14
+!i122 129
+L0 45 45
+R8
+R9
+r1
+!s85 0
+31
+R10
+R15
+R16
+!i113 0
+R11
+R2
+vint_to_radix9
+R4
+!i10b 1
+!s100 QN_CF<o1]9YBfV>h<lVia2
+R5
+IYJ=mPK@FI0ECiSPd>YP]13
+R6
+Z17 w1767728147
+Z18 8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v
+Z19 FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v
+!i122 130
+L0 3 47
+R8
+R9
+r1
+!s85 0
+31
+R10
+Z20 !s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v|
+Z21 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v|
+!i113 0
+R11
+R2
+vint_to_rns
+R4
+!i10b 1
+!s100 KH^J`l;B:c@SlIh]0S@el0
+R5
+IRINfCbC6m:07?Oa_IO1PK2
+R6
+w1767728422
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v
+!i122 131
+Z22 L0 1 20
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v|
+!i113 0
+R11
+R2
+vMAC_Controller
+R4
+!i10b 1
+!s100 :gL<<f=2NPPEB0mSe1^NW3
+R5
+IiQBzA6ko7S^LnCeI888CU3
+R6
+w1770641962
+8D:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v
+FD:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v
+!i122 140
+L0 9 154
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v|
+!i113 0
+R11
+R2
+n@m@a@c_@controller
+vMAC_Datapath
+R4
+!i10b 1
+!s100 253UCXF@`S50dW?VfBDPI3
+R5
+IFC`KN@h?cTM_RW651YlOK0
+R6
+w1770642004
+8D:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v
+FD:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v
+!i122 141
+L0 9 184
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v|
+!i113 0
+R11
+R2
+n@m@a@c_@datapath
+vMAC_TB
+R4
+!i10b 1
+!s100 GLCIS:TfigfF;oO>mPEYO3
+R5
+I=lobY>g>CnMGP2Tbcf:KK0
+R6
+w1770642776
+8D:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v
+FD:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v
+!i122 143
+L0 8 262
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v|
+!i113 0
+R11
+R2
+n@m@a@c_@t@b
+vMAC_Top
+R4
+!i10b 1
+!s100 oFS:k;f_BS5[D04VJ>_En0
+R5
+I0>7WH;_3gkz_N:FcXj@fb0
+R6
+w1770642029
+8D:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v
+FD:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v
+!i122 142
+L0 8 65
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v|
+!i113 0
+R11
+R2
+n@m@a@c_@top
+vmul_rns
+R4
+!i10b 1
+!s100 ]:geSOP<dLb4WJNJa6o6Y1
+R5
+IgZLE@_H[F@SAC[6o<jf:Y1
+R6
+w1767732921
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v
+!i122 139
+R22
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v|
+!i113 0
+R11
+R2
+vMult
+R4
+!i10b 1
+!s100 :eUQ1bfAhZdI9_D8UO:HL1
+R5
+IddjC<zfN4XQS5G4HiGb7=1
+R6
+w1767706674
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v
+!i122 138
+R7
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v|
+!i113 0
+R11
+R2
+n@mult
+vResiduefor7
+R4
+!i10b 1
+!s100 8UTDEoUd[S0KMzhcgV<]o3
+R5
+IA6V:@94dG^@;_SRZY7kak3
+R6
+w1767730881
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v
+!i122 135
+L0 1 38
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v|
+!i113 0
+R11
+R2
+n@residuefor7
+vResiduefor8
+R4
+!i10b 1
+!s100 BjN];WKchFeD^LWnjf[4>3
+R5
+ImRbM>m`FW9`e6W]`N;gK20
+R6
+w1767731009
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v
+!i122 136
+L0 1 8
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v|
+!i113 0
+R11
+R2
+n@residuefor8
+vResiduefor9
+R4
+!i10b 1
+!s100 c4_0h>f_E0^>0iIZNcXi31
+R5
+IZWi81:^YMQO7KcL=f12]_1
+R6
+w1767731047
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v
+!i122 137
+L0 1 40
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v|
+!i113 0
+R11
+R2
+n@residuefor9
+vrns_to_int
+R4
+!i10b 1
+!s100 lnZ<cKQJ5ZoedkSlMWo;00
+R5
+I7_aR`E6Ba;EYXfz7>Z_kL1
+R6
+Z23 w1767730609
+Z24 8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v
+Z25 FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v
+!i122 132
+L0 3 27
+R8
+R9
+r1
+!s85 0
+31
+R10
+Z26 !s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v|
+Z27 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v|
+!i113 0
+R11
+R2
+vRNSAdder
+R4
+!i10b 1
+!s100 hj<XzJ4ZYk8P@>=[h41U23
+R5
+INm8KO4fAfA6A>WMlGl_WJ2
+R6
+w1767728594
+8D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v
+FD:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v
+!i122 134
+L0 1 22
+R8
+R9
+r1
+!s85 0
+31
+R10
+!s107 D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v|
+!i113 0
+R11
+R2
+n@r@n@s@adder
+vtb_i2r2i
+R4
+!i10b 1
+!s100 6Uzz`ZCE7cWLdX:KK_3=X2
+R5
+IBQDT91D__iMieDD7];P?:0
+R6
+R23
+R24
+R25
+!i122 132
+L0 31 36
+R8
+R9
+r1
+!s85 0
+31
+R10
+R26
+R27
+!i113 0
+R11
+R2
+vtb_i2r7
+R4
+!i10b 1
+!s100 H;G>o:9g6?0O3I_9Mikga2
+R5
+Inm`7KgE?KKC[[K59<FhNH1
+R6
+R12
+R13
+R14
+!i122 129
+L0 92 24
+R8
+R9
+r1
+!s85 0
+31
+R10
+R15
+R16
+!i113 0
+R11
+R2
+vtb_i2r9
+R4
+!i10b 1
+!s100 6USBEB6FS5Ql2CRO[iJMM2
+R5
+IkZk^2EbR0:KP26^;GgMoT1
+R6
+R17
+R18
+R19
+!i122 130
+L0 52 24
+R8
+R9
+r1
+!s85 0
+31
+R10
+R20
+R21
+!i113 0
+R11
+R2

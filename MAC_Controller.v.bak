@@ -1,0 +1,214 @@
+//==============================================================================
+// File: MAC_Controller.v
+// Description: Finite State Machine (FSM) Controller for MAC operation in RNS
+//              Computes: result = sum(a[i] * b[i]) for i = 1 to 3
+// Author: CA3 Project
+// Date: 2025
+//==============================================================================
+
+`timescale 1ns/1ns
+
+module MAC_Controller (
+    input wire clk,                    // System clock
+    input wire rst,                    // Synchronous reset (active high)
+    input wire start,                  // Start signal to begin MAC operation
+    
+    // Control outputs to datapath
+    output reg mem_read,               // Memory read enable
+    output reg [1:0] operand_sel,      // Select which operand pair (0, 1, 2)
+    output reg mult_en,                // Multiplier enable
+    output reg acc_en,                 // Accumulator enable
+    output reg acc_clear,              // Clear accumulator
+    output reg result_valid,           // Result is ready
+    output reg [31:0] mem_addr_a,      // Memory address for operand A
+    output reg [31:0] mem_addr_b       // Memory address for operand B
+);
+
+    //==========================================================================
+    // State Definition
+    //==========================================================================
+    localparam [3:0] 
+        IDLE        = 4'd0,    // Wait for start signal
+        INIT        = 4'd1,    // Initialize/clear accumulator
+        LOAD_OP1    = 4'd2,    // Load first operand pair from memory
+        MULT1       = 4'd3,    // Multiply first pair
+        ACC1        = 4'd4,    // Accumulate first product
+        LOAD_OP2    = 4'd5,    // Load second operand pair
+        MULT2       = 4'd6,    // Multiply second pair
+        ACC2        = 4'd7,    // Accumulate second product
+        LOAD_OP3    = 4'd8,    // Load third operand pair
+        MULT3       = 4'd9,    // Multiply third pair
+        ACC3        = 4'd10,   // Accumulate third product
+        DONE        = 4'd11;   // Operation complete
+
+    //==========================================================================
+    // State Registers
+    //==========================================================================
+    reg [3:0] current_state, next_state;
+
+    //==========================================================================
+    // Memory Address Parameters (Base addresses for operands)
+    //==========================================================================
+    localparam [31:0] BASE_ADDR_A = 32'h0000_0000;  // Base address for a[i]
+    localparam [31:0] BASE_ADDR_B = 32'h0000_0010;  // Base address for b[i]
+
+    //==========================================================================
+    // State Register - Sequential Logic
+    //==========================================================================
+    always @(posedge clk) begin
+        if (rst) begin
+            current_state <= IDLE;
+        end else begin
+            current_state <= next_state;
+        end
+    end
+
+    //==========================================================================
+    // Next State Logic - Combinational
+    //==========================================================================
+    always @(*) begin
+        // Default: stay in current state
+        next_state = current_state;
+        
+        case (current_state)
+            IDLE: begin
+                if (start)
+                    next_state = INIT;
+            end
+            
+            INIT: begin
+                next_state = LOAD_OP1;
+            end
+            
+            LOAD_OP1: begin
+                next_state = MULT1;
+            end
+            
+            MULT1: begin
+                next_state = ACC1;
+            end
+            
+            ACC1: begin
+                next_state = LOAD_OP2;
+            end
+            
+            LOAD_OP2: begin
+                next_state = MULT2;
+            end
+            
+            MULT2: begin
+                next_state = ACC2;
+            end
+            
+            ACC2: begin
+                next_state = LOAD_OP3;
+            end
+            
+            LOAD_OP3: begin
+                next_state = MULT3;
+            end
+            
+            MULT3: begin
+                next_state = ACC3;
+            end
+            
+            ACC3: begin
+                next_state = DONE;
+            end
+            
+            DONE: begin
+                if (!start)
+                    next_state = IDLE;
+            end
+            
+            default: begin
+                next_state = IDLE;
+            end
+        endcase
+    end
+
+    //==========================================================================
+    // Output Logic - Combinational
+    //==========================================================================
+    always @(*) begin
+        // Default values for all outputs
+        mem_read     = 1'b0;
+        operand_sel  = 2'b00;
+        mult_en      = 1'b0;
+        acc_en       = 1'b0;
+        acc_clear    = 1'b0;
+        result_valid = 1'b0;
+        mem_addr_a   = BASE_ADDR_A;
+        mem_addr_b   = BASE_ADDR_B;
+        
+        case (current_state)
+            IDLE: begin
+                // All outputs remain at default (inactive)
+            end
+            
+            INIT: begin
+                acc_clear = 1'b1;  // Clear the accumulator
+            end
+            
+            LOAD_OP1: begin
+                mem_read    = 1'b1;
+                operand_sel = 2'b00;
+                mem_addr_a  = BASE_ADDR_A;      // a[0]
+                mem_addr_b  = BASE_ADDR_B;      // b[0]
+            end
+            
+            MULT1: begin
+                mult_en     = 1'b1;
+                operand_sel = 2'b00;
+            end
+            
+            ACC1: begin
+                acc_en      = 1'b1;
+                operand_sel = 2'b00;
+            end
+            
+            LOAD_OP2: begin
+                mem_read    = 1'b1;
+                operand_sel = 2'b01;
+                mem_addr_a  = BASE_ADDR_A + 1;  // a[1]
+                mem_addr_b  = BASE_ADDR_B + 1;  // b[1]
+            end
+            
+            MULT2: begin
+                mult_en     = 1'b1;
+                operand_sel = 2'b01;
+            end
+            
+            ACC2: begin
+                acc_en      = 1'b1;
+                operand_sel = 2'b01;
+            end
+            
+            LOAD_OP3: begin
+                mem_read    = 1'b1;
+                operand_sel = 2'b10;
+                mem_addr_a  = BASE_ADDR_A + 2;  // a[2]
+                mem_addr_b  = BASE_ADDR_B + 2;  // b[2]
+            end
+            
+            MULT3: begin
+                mult_en     = 1'b1;
+                operand_sel = 2'b10;
+            end
+            
+            ACC3: begin
+                acc_en      = 1'b1;
+                operand_sel = 2'b10;
+            end
+            
+            DONE: begin
+                result_valid = 1'b1;  // Signal that result is ready
+            end
+            
+            default: begin
+                // All outputs at default
+            end
+        endcase
+    end
+
+endmodule

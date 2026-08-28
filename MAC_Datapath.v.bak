@@ -1,0 +1,171 @@
+//==============================================================================
+// File: MAC_Datapath.v
+// Description: Datapath for MAC operation in RNS system with moduli {7, 8, 9}
+//              Handles data flow between memory, multiplier, and accumulator
+// Author: CA3 Project
+// Date: 2025
+//==============================================================================
+
+`timescale 1ns/1ns
+
+module MAC_Datapath (
+    input wire clk,                    // System clock
+    input wire rst,                    // Synchronous reset
+    
+    // Control signals from controller
+    input wire mem_read,               // Memory read enable
+    input wire [1:0] operand_sel,      // Operand pair selector
+    input wire mult_en,                // Multiplier enable
+    input wire acc_en,                 // Accumulator enable
+    input wire acc_clear,              // Clear accumulator
+    input wire [31:0] mem_addr_a,      // Memory address for A
+    input wire [31:0] mem_addr_b,      // Memory address for B
+    
+    // Data outputs
+    output wire [9:0] result_rns,      // Final result in RNS format
+    output wire [7:0] result_binary    // Final result converted to binary
+);
+
+    //==========================================================================
+    // Internal Signals
+    //==========================================================================
+    
+    // Memory output signals (RNS format: [9:7]=mod7, [6:4]=mod8, [3:0]=mod9)
+    wire [7:0] mem_data_a_raw;
+    wire [7:0] mem_data_b_raw;
+    
+    // RNS converted operands
+    wire [9:0] operand_a_rns;
+    wire [9:0] operand_b_rns;
+    
+    // Registered operands
+    reg [9:0] reg_a;
+    reg [9:0] reg_b;
+    
+    // Multiplier output
+    wire [9:0] mult_result;
+    reg [9:0] mult_result_reg;
+    
+    // Accumulator signals
+    reg [9:0] accumulator;
+    wire [9:0] adder_result;
+    
+    // Moduli for RNS adder (packed format)
+    wire [10:0] moduli;
+    assign moduli = 11'b111_1000_1001;  // {7, 8, 9} in binary
+
+    //==========================================================================
+    // Memory Instances for Operand A and B
+    //==========================================================================
+    
+    DataMem #(
+        .dataWidth(8),
+        .blockSize(4096),
+        .addressWidth(32)
+    ) mem_a (
+        .write(1'b0),
+        .addressBus(mem_addr_a),
+        .memDataIN(8'b0),
+        .memDataOut(mem_data_a_raw)
+    );
+    
+    DataMem #(
+        .dataWidth(8),
+        .blockSize(4096),
+        .addressWidth(32)
+    ) mem_b (
+        .write(1'b0),
+        .addressBus(mem_addr_b),
+        .memDataIN(8'b0),
+        .memDataOut(mem_data_b_raw)
+    );
+
+    //==========================================================================
+    // Binary to RNS Conversion
+    //==========================================================================
+    
+    int_to_rns conv_a (
+        .in(mem_data_a_raw),
+        .r7(operand_a_rns[9:7]),
+        .r8(operand_a_rns[6:4]),
+        .r9(operand_a_rns[3:0])
+    );
+    
+    int_to_rns conv_b (
+        .in(mem_data_b_raw),
+        .r7(operand_b_rns[9:7]),
+        .r8(operand_b_rns[6:4]),
+        .r9(operand_b_rns[3:0])
+    );
+
+    //==========================================================================
+    // Operand Registers
+    //==========================================================================
+    
+    always @(posedge clk) begin
+        if (rst) begin
+            reg_a <= 10'b0;
+            reg_b <= 10'b0;
+        end else if (mem_read) begin
+            reg_a <= operand_a_rns;
+            reg_b <= operand_b_rns;
+        end
+    end
+
+    //==========================================================================
+    // RNS Multiplier
+    //==========================================================================
+    
+    mul_rns rns_multiplier (
+        .a(reg_a),
+        .b(reg_b),
+        .c(mult_result)
+    );
+    
+    // Register multiplier output
+    always @(posedge clk) begin
+        if (rst) begin
+            mult_result_reg <= 10'b0;
+        end else if (mult_en) begin
+            mult_result_reg <= mult_result;
+        end
+    end
+
+    //==========================================================================
+    // RNS Adder (for accumulation)
+    //==========================================================================
+    
+    RNSAdder rns_adder (
+        .a(accumulator),
+        .b(mult_result_reg),
+        .mi(moduli),
+        .c(adder_result)
+    );
+
+    //==========================================================================
+    // Accumulator Register
+    //==========================================================================
+    
+    always @(posedge clk) begin
+        if (rst || acc_clear) begin
+            accumulator <= 10'b0;
+        end else if (acc_en) begin
+            accumulator <= adder_result;
+        end
+    end
+
+    //==========================================================================
+    // RNS to Binary Conversion for Output
+    //==========================================================================
+    
+    rns_to_int rns_converter (
+        .r7(accumulator[9:7]),
+        .r8(accumulator[6:4]),
+        .r9(accumulator[3:0]),
+        .result(result_binary)
+    );
+    
+    // Output assignments
+    assign result_rns = accumulator;
+
+endmodule

@@ -1,0 +1,132 @@
+{D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor7.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Residuefor7
+
+Top level modules:
+	Residuefor7
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor8.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Residuefor8
+
+Top level modules:
+	Residuefor8
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix7.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module full_adder
+-- Compiling module carry_save_adder
+-- Compiling module int_to_radix7
+-- Compiling module tb_i2r7
+
+Top level modules:
+	tb_i2r7
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/RNSAdder.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module RNSAdder
+
+Top level modules:
+	RNSAdder
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Residuefor9.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Residuefor9
+
+Top level modules:
+	Residuefor9
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Top.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module MAC_Top
+
+Top level modules:
+	MAC_Top
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2radix9.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module int_to_radix9
+-- Compiling module tb_i2r9
+
+Top level modules:
+	tb_i2r9
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/RnsMult.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module mul_rns
+
+Top level modules:
+	mul_rns
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/adder/CarrySaveAdder.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module CSA
+
+Top level modules:
+	CSA
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Adder.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Adder
+
+Top level modules:
+	Adder
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Mult.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/unsigned integer/Mult.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Mult
+
+Top level modules:
+	Mult
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/mult/Mult.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module Mult
+
+Top level modules:
+	Mult
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Controller.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module MAC_Controller
+
+Top level modules:
+	MAC_Controller
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/MAC_TB.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module MAC_TB
+
+Top level modules:
+	MAC_TB
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/int_to_rns/int2rns.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module int_to_rns
+
+Top level modules:
+	int_to_rns
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/rns/rns_to_int/rns2int.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module rns_to_int
+-- Compiling module tb_i2r2i
+
+Top level modules:
+	tb_i2r2i
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/MAC_Datapath.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module MAC_Datapath
+
+Top level modules:
+	MAC_Datapath
+
+} {} {}} {D:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v} {1 {vlog -work work -vopt -stats=none {D:/Embedded AI Fall 2025/CA3/CA3/CA3/DataMem.v}
+Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+-- Compiling module DataMem
+
+Top level modules:
+	DataMem
+
+} {} {}}

@@ -1,0 +1,78 @@
+//==============================================================================
+// File: MAC_Top.v
+// Description: Top-level module integrating Controller and Datapath for MAC
+//              operation in RNS system
+// Author: CA3 Project
+// Date: 2025
+//==============================================================================
+
+`timescale 1ns/1ns
+
+module MAC_Top (
+    input wire clk,                    // System clock
+    input wire rst,                    // Synchronous reset (active high)
+    input wire start,                  // Start MAC operation
+    
+    output wire [9:0] result_rns,      // Result in RNS format
+    output wire [7:0] result_binary,   // Result in binary format
+    output wire done                   // Operation complete flag
+);
+
+    //==========================================================================
+    // Internal Control Signals
+    //==========================================================================
+    wire mem_read;
+    wire [1:0] operand_sel;
+    wire mult_en;
+    wire acc_en;
+    wire acc_clear;
+    wire result_valid;
+    wire [31:0] mem_addr_a;
+    wire [31:0] mem_addr_b;
+
+    //==========================================================================
+    // Controller Instance
+    //==========================================================================
+    MAC_Controller controller (
+        .clk(clk),
+        .rst(rst),
+        .start(start),
+        
+        // Control outputs
+        .mem_read(mem_read),
+        .operand_sel(operand_sel),
+        .mult_en(mult_en),
+        .acc_en(acc_en),
+        .acc_clear(acc_clear),
+        .result_valid(result_valid),
+        .mem_addr_a(mem_addr_a),
+        .mem_addr_b(mem_addr_b)
+    );
+
+    //==========================================================================
+    // Datapath Instance
+    //==========================================================================
+    MAC_Datapath datapath (
+        .clk(clk),
+        .rst(rst),
+        
+        // Control inputs
+        .mem_read(mem_read),
+        .operand_sel(operand_sel),
+        .mult_en(mult_en),
+        .acc_en(acc_en),
+        .acc_clear(acc_clear),
+        .mem_addr_a(mem_addr_a),
+        .mem_addr_b(mem_addr_b),
+        
+        // Data outputs
+        .result_rns(result_rns),
+        .result_binary(result_binary)
+    );
+
+    //==========================================================================
+    // Output Assignment
+    //==========================================================================
+    assign done = result_valid;
+
+endmodule

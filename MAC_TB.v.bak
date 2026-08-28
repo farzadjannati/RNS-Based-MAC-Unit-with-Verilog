@@ -1,0 +1,292 @@
+//==============================================================================
+// File: MAC_TB.v
+// Description: Testbench for RNS MAC unit with multiple test cases
+//==============================================================================
+
+`timescale 1ns/1ns
+
+module MAC_TB;
+
+    //==========================================================================
+    // Testbench Signals
+    //==========================================================================
+    reg clk;
+    reg rst;
+    reg start;
+    
+    wire [9:0] result_rns;
+    wire [7:0] result_binary;
+    wire done;
+    
+    // Test tracking
+    integer test_num;
+    integer pass_count;
+    integer fail_count;
+
+    //==========================================================================
+    // Clock Generation - 50MHz (20ns period)
+    //==========================================================================
+    initial begin
+        clk = 0;
+        forever #10 clk = ~clk;
+    end
+
+    //==========================================================================
+    // DUT Instance
+    //==========================================================================
+    MAC_Top dut (
+        .clk(clk),
+        .rst(rst),
+        .start(start),
+        .result_rns(result_rns),
+        .result_binary(result_binary),
+        .done(done)
+    );
+
+    //==========================================================================
+    // Main Test Sequence
+    //==========================================================================
+    initial begin
+        // Initialize
+        rst = 0;
+        start = 0;
+        test_num = 0;
+        pass_count = 0;
+        fail_count = 0;
+        
+        $display("");
+        $display("############################################################");
+        $display("#                                                          #");
+        $display("#       MAC Unit Testbench - RNS System {7, 8, 9}          #");
+        $display("#                                                          #");
+        $display("############################################################");
+        $display("");
+        
+        // Initial reset
+        #15;
+        rst = 1;
+        #30;
+        rst = 0;
+        #15;
+        
+        //======================================================================
+        // Test 1: Basic test
+        // a = {5, 10, 3}, b = {4, 2, 6}
+        // Result = 5*4 + 10*2 + 3*6 = 20 + 20 + 18 = 58
+        //======================================================================
+        run_test(1, 58, "Basic: 5*4 + 10*2 + 3*6");
+        
+        //======================================================================
+        // Test 2: All zeros
+        // a = {0, 0, 0}, b = {0, 0, 0}
+        // Result = 0
+        //======================================================================
+        // Update DataMem for test 2
+        force dut.datapath.mem_a.memory[0] = 8'd0;
+        force dut.datapath.mem_a.memory[1] = 8'd0;
+        force dut.datapath.mem_a.memory[2] = 8'd0;
+        force dut.datapath.mem_b.memory[3] = 8'd0;
+        force dut.datapath.mem_b.memory[4] = 8'd0;
+        force dut.datapath.mem_b.memory[5] = 8'd0;
+        #20;
+        run_test(2, 0, "All zeros: 0*0 + 0*0 + 0*0");
+        
+        //======================================================================
+        // Test 3: All ones
+        // a = {1, 1, 1}, b = {1, 1, 1}
+        // Result = 1*1 + 1*1 + 1*1 = 3
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd1;
+        force dut.datapath.mem_a.memory[1] = 8'd1;
+        force dut.datapath.mem_a.memory[2] = 8'd1;
+        force dut.datapath.mem_b.memory[3] = 8'd1;
+        force dut.datapath.mem_b.memory[4] = 8'd1;
+        force dut.datapath.mem_b.memory[5] = 8'd1;
+        #20;
+        run_test(3, 3, "All ones: 1*1 + 1*1 + 1*1");
+        
+        //======================================================================
+        // Test 4: Sequential numbers
+        // a = {1, 2, 3}, b = {4, 5, 6}
+        // Result = 1*4 + 2*5 + 3*6 = 4 + 10 + 18 = 32
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd1;
+        force dut.datapath.mem_a.memory[1] = 8'd2;
+        force dut.datapath.mem_a.memory[2] = 8'd3;
+        force dut.datapath.mem_b.memory[3] = 8'd4;
+        force dut.datapath.mem_b.memory[4] = 8'd5;
+        force dut.datapath.mem_b.memory[5] = 8'd6;
+        #20;
+        run_test(4, 32, "Sequential: 1*4 + 2*5 + 3*6");
+        
+        //======================================================================
+        // Test 5: Larger numbers (within range)
+        // a = {7, 8, 9}, b = {3, 4, 5}
+        // Result = 7*3 + 8*4 + 9*5 = 21 + 32 + 45 = 98
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd7;
+        force dut.datapath.mem_a.memory[1] = 8'd8;
+        force dut.datapath.mem_a.memory[2] = 8'd9;
+        force dut.datapath.mem_b.memory[3] = 8'd3;
+        force dut.datapath.mem_b.memory[4] = 8'd4;
+        force dut.datapath.mem_b.memory[5] = 8'd5;
+        #20;
+        run_test(5, 98, "Larger: 7*3 + 8*4 + 9*5");
+        
+        //======================================================================
+        // Test 6: One operand zero
+        // a = {5, 0, 7}, b = {3, 9, 2}
+        // Result = 5*3 + 0*9 + 7*2 = 15 + 0 + 14 = 29
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd5;
+        force dut.datapath.mem_a.memory[1] = 8'd0;
+        force dut.datapath.mem_a.memory[2] = 8'd7;
+        force dut.datapath.mem_b.memory[3] = 8'd3;
+        force dut.datapath.mem_b.memory[4] = 8'd9;
+        force dut.datapath.mem_b.memory[5] = 8'd2;
+        #20;
+        run_test(6, 29, "With zero: 5*3 + 0*9 + 7*2");
+        
+        //======================================================================
+        // Test 7: Maximum safe values
+        // a = {12, 6, 5}, b = {4, 7, 8}
+        // Result = 12*4 + 6*7 + 5*8 = 48 + 42 + 40 = 130
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd12;
+        force dut.datapath.mem_a.memory[1] = 8'd6;
+        force dut.datapath.mem_a.memory[2] = 8'd5;
+        force dut.datapath.mem_b.memory[3] = 8'd4;
+        force dut.datapath.mem_b.memory[4] = 8'd7;
+        force dut.datapath.mem_b.memory[5] = 8'd8;
+        #20;
+        run_test(7, 130, "Max safe: 12*4 + 6*7 + 5*8");
+        
+        //======================================================================
+        // Test 8: Powers of 2
+        // a = {2, 4, 8}, b = {8, 4, 2}
+        // Result = 2*8 + 4*4 + 8*2 = 16 + 16 + 16 = 48
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd2;
+        force dut.datapath.mem_a.memory[1] = 8'd4;
+        force dut.datapath.mem_a.memory[2] = 8'd8;
+        force dut.datapath.mem_b.memory[3] = 8'd8;
+        force dut.datapath.mem_b.memory[4] = 8'd4;
+        force dut.datapath.mem_b.memory[5] = 8'd2;
+        #20;
+        run_test(8, 48, "Powers of 2: 2*8 + 4*4 + 8*2");
+        
+        //======================================================================
+        // Test 9: Same values
+        // a = {6, 6, 6}, b = {6, 6, 6}
+        // Result = 6*6 + 6*6 + 6*6 = 36 + 36 + 36 = 108
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd6;
+        force dut.datapath.mem_a.memory[1] = 8'd6;
+        force dut.datapath.mem_a.memory[2] = 8'd6;
+        force dut.datapath.mem_b.memory[3] = 8'd6;
+        force dut.datapath.mem_b.memory[4] = 8'd6;
+        force dut.datapath.mem_b.memory[5] = 8'd6;
+        #20;
+        run_test(9, 108, "Same values: 6*6 + 6*6 + 6*6");
+        
+        //======================================================================
+        // Test 10: Near boundary (result close to 504)
+        // a = {10, 11, 12}, b = {10, 11, 10}
+        // Result = 10*10 + 11*11 + 12*10 = 100 + 121 + 120 = 341
+        //======================================================================
+        force dut.datapath.mem_a.memory[0] = 8'd10;
+        force dut.datapath.mem_a.memory[1] = 8'd11;
+        force dut.datapath.mem_a.memory[2] = 8'd12;
+        force dut.datapath.mem_b.memory[3] = 8'd10;
+        force dut.datapath.mem_b.memory[4] = 8'd11;
+        force dut.datapath.mem_b.memory[5] = 8'd10;
+        #20;
+        run_test(10, 341, "Near boundary: 10*10 + 11*11 + 12*10");
+        
+        // Release all forces
+        release dut.datapath.mem_a.memory[0];
+        release dut.datapath.mem_a.memory[1];
+        release dut.datapath.mem_a.memory[2];
+        release dut.datapath.mem_b.memory[3];
+        release dut.datapath.mem_b.memory[4];
+        release dut.datapath.mem_b.memory[5];
+        
+        //======================================================================
+        // Final Summary
+        //======================================================================
+        $display("");
+        $display("############################################################");
+        $display("#                    TEST SUMMARY                          #");
+        $display("############################################################");
+        $display("#                                                          #");
+        $display("#   Total Tests:  %2d                                       #", test_num);
+        $display("#   Passed:       %2d                                       #", pass_count);
+        $display("#   Failed:       %2d                                       #", fail_count);
+        $display("#                                                          #");
+        if (fail_count == 0) begin
+            $display("#          >>> ALL TESTS PASSED <<<                        #");
+        end else begin
+            $display("#          >>> SOME TESTS FAILED <<<                       #");
+        end
+        $display("#                                                          #");
+        $display("############################################################");
+        $display("");
+        
+        #100;
+        $stop;
+    end
+
+    //==========================================================================
+    // Task: Run a single test
+    //==========================================================================
+    task run_test;
+        input integer num;
+        input [7:0] expected;
+        input [255:0] description;
+        begin
+            test_num = num;
+            
+            $display("========================================");
+            $display("TEST %0d: %0s", num, description);
+            $display("========================================");
+            
+            // Reset
+            rst = 1;
+            #30;
+            rst = 0;
+            #20;
+            
+            // Start
+            start = 1;
+            @(posedge clk);
+            @(posedge clk);
+            start = 0;
+            
+            // Wait for done
+            wait(done == 1'b1);
+            @(posedge clk);
+            
+            // Check result
+            $display("Result RNS: %b (mod7=%0d, mod8=%0d, mod9=%0d)", 
+                     result_rns, result_rns[9:7], result_rns[6:4], result_rns[3:0]);
+            $display("Result Binary: %0d", result_binary);
+            $display("Expected:      %0d", expected);
+            
+            // Verify expected RNS values
+            $display("Expected RNS:  mod7=%0d, mod8=%0d, mod9=%0d", 
+                     expected % 7, expected % 8, expected % 9);
+            
+            if (result_binary == expected) begin
+                $display(">>> PASSED <<<");
+                pass_count = pass_count + 1;
+            end else begin
+                $display(">>> FAILED <<< (diff=%0d)", $signed(result_binary - expected));
+                fail_count = fail_count + 1;
+            end
+            $display("");
+            
+            #50;
+        end
+    endtask
+
+endmodule
